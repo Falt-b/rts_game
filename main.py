@@ -1,9 +1,9 @@
 import pygame
-import grid
+import iso_grid
 from sys import exit
 
-WIDTH = 640
-HEIGHT = 640
+WIDTH = 1280
+HEIGHT = 880
 FPS = 60
 BG_COLOR = (20, 20, 20)
 
@@ -14,8 +14,8 @@ def main():
     pygame.display.set_caption("rts_game")
     clock = pygame.time.Clock()
 
-    test_grid = grid.Grid(64, 64, 320 - 32, 160 - 32)
-    grid.generate_grid(10, 10, "grid_tile.png", (0, 0, 0), test_grid)
+    test_grid = iso_grid.Iso_Grid((64, 64), (640 - 32, 160 - 32))
+    iso_grid.generate_grid(20, 20, test_grid, "test_tile.png", 2)
 
     while True:
         clock.tick(FPS)
@@ -28,7 +28,8 @@ def main():
 
         display.fill(BG_COLOR)
 
-        test_grid.custom_draw(display)
+        test_grid.draw_grid(display)
+        # test_grid.draw(display)
 
         pygame.display.update()
 
