@@ -4,7 +4,7 @@ from sys import exit
 
 WIDTH = 1280
 HEIGHT = 880
-FPS = 60
+FPS = 10
 BG_COLOR = (20, 20, 20)
 
 
@@ -14,8 +14,10 @@ def main():
     pygame.display.set_caption("rts_game")
     clock = pygame.time.Clock()
 
-    test_grid = iso_grid.Iso_Grid((64, 64), (640 - 32, 160 - 32))
-    iso_grid.generate_grid(20, 20, test_grid, "test_tile.png", 2)
+    center = pygame.Vector2(WIDTH / 2, 0)
+
+    test_grid = iso_grid.Iso_Grid((64, 64), center)
+    iso_grid.generate_grid(20, 20, test_grid, "images/test_tile.png", 2)
 
     while True:
         clock.tick(FPS)
@@ -28,8 +30,13 @@ def main():
 
         display.fill(BG_COLOR)
 
+        cords = test_grid.screen_to_grid(pygame.Vector2(pygame.mouse.get_pos()))
+        tile_index = int(cords.x + cords.y * 20)
+        if tile_index > 399:
+            tile_index = 399
+        test_grid.slect_tile(tile_index)
+
         test_grid.draw_grid(display)
-        # test_grid.draw(display)
 
         pygame.display.update()
 
