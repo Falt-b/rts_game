@@ -14,10 +14,10 @@ class Mouse_Handler:
         self.inputs = pygame.mouse.get_pressed()
 
     def click_drag(self):
-        if not self.inputs[0]:
+        if not self.inputs[1]:
             self.drag = False
             return pygame.Vector2()
-        if self.inputs[0] and not self.drag:
+        if self.inputs[1] and not self.drag:
             self.initial_position = pygame.Vector2(pygame.mouse.get_pos())
             self.drag = True
             return pygame.Vector2()
