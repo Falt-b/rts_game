@@ -1,6 +1,7 @@
 import pygame
 import iso_grid
 import input_handler
+import image_loading
 from sys import exit
 
 WIDTH = 1280
@@ -42,9 +43,20 @@ def main():
         if tile_index > 399:
             tile_index = 399
 
-        test_grid.offset += mouse.click_drag()
+        test_grid.offset += mouse.click_drag() * 2
 
-        test_grid.sprites()[tile_index].offset.y = -10
+        if mouse.inputs[0]:
+            t = iso_grid.Tile(
+                cords, image_loading.load_image("images/rock_1.png", 2), test_grid
+            )
+            t.offset = pygame.Vector2(0, -64)
+        if mouse.inputs[2]:
+            t = iso_grid.Tile(
+                cords, image_loading.load_image("images/rock_2.png", 2), test_grid
+            )
+            t.offset = pygame.Vector2(0, -32)
+
+        # test_grid.sprites()[tile_index].offset.y = -10
 
         test_grid.draw_grid(display)
 
